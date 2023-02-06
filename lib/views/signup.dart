@@ -1,11 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:my_first_flutter_project/controllers/auth.dart';
+import 'package:my_first_flutter_project/database/user.dart';
 import 'package:my_first_flutter_project/resources/strings.dart';
 import 'package:my_first_flutter_project/views/helpers.dart';
 
 class SignUpView extends StatelessWidget {
   SignUpView({super.key});
   final _formKey = GlobalKey<FormState>();
+  final UserModel userModel = UserModel();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -31,6 +35,7 @@ class SignUpView extends StatelessWidget {
                 height: MediaQuery.of(context).size.height * .2,
               ),
               TextFormField(
+                onChanged: (value) => userModel.email = value,
                 validator: (value) {
                   if (value!.contains('@') &&
                       value.contains('.') &&
@@ -44,6 +49,7 @@ class SignUpView extends StatelessWidget {
               ),
               vSpace,
               TextFormField(
+                onChanged: (value) => userModel.name = value,
                 validator: (value) {
                   if (value!.isEmpty) {
                     return "Name field is empty!";
@@ -53,12 +59,15 @@ class SignUpView extends StatelessWidget {
               ),
               vSpace,
               TextFormField(
+                onChanged: (value) => userModel.password = value,
                 decoration: const InputDecoration(labelText: "Enter Password"),
               ),
               vSpace,
               FloatingActionButton.extended(
                 onPressed: () async {
-                  if (_formKey.currentState!.validate()) {}
+                  if (_formKey.currentState!.validate()) {
+                    AuthController().signUp(userModel);
+                  }
                 },
                 label: const Text("Create Account"),
               )
