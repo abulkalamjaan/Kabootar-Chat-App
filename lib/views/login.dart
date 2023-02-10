@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:my_first_flutter_project/pages/auth/reset_pass.dart';
 import 'package:my_first_flutter_project/resources/strings.dart';
 import 'package:my_first_flutter_project/views/app_button.dart';
 import 'package:my_first_flutter_project/views/helpers.dart';
+import 'package:my_first_flutter_project/views/signup.dart';
 
 class LoginView extends StatelessWidget {
   LoginView({super.key});
@@ -49,7 +52,9 @@ class LoginView extends StatelessWidget {
                 decoration: const InputDecoration(labelText: "Enter Password"),
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () async {
+                  Get.toNamed(ForgetPassPage.route, arguments: 'saa');
+                },
                 child: const Text("Forgot Password?"),
               ),
               FloatingActionButton.extended(
@@ -64,7 +69,8 @@ class LoginView extends StatelessWidget {
                 title: 'Custom btn',
                 onTap: () async {
                   ///
-                  appButtonKey.currentState!.makeButtonBusy();
+                  //appButtonKey.currentState!.makeButtonBusy();
+                  Get.to(SignUpView());
                 },
               ),
             ],
