@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_first_flutter_project/controllers/auth.dart';
-import 'package:my_first_flutter_project/views/app_button.dart';
+import 'package:my_first_flutter_project/ui/views/app_button.dart';
 
 class ForgetPassPage extends StatelessWidget {
   static String route = '/reset-pass';

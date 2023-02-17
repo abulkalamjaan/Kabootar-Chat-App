@@ -1,16 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:my_first_flutter_project/pages/auth/reset_pass.dart';
-import 'package:my_first_flutter_project/resources/strings.dart';
-import 'package:my_first_flutter_project/views/app_button.dart';
-import 'package:my_first_flutter_project/views/helpers.dart';
-import 'package:my_first_flutter_project/views/signup.dart';
+import 'package:my_first_flutter_project/controllers/auth.dart';
+import 'package:my_first_flutter_project/ui/pages/auth/reset_pass.dart';
+
+import 'package:my_first_flutter_project/ui/views/app_button.dart';
+import 'package:my_first_flutter_project/ui/views/helpers.dart';
+import 'package:my_first_flutter_project/ui/views/loading.dart';
+import 'package:my_first_flutter_project/ui/views/signup.dart';
 
 class LoginView extends StatelessWidget {
   LoginView({super.key});
   final _formKey = GlobalKey<FormState>();
   final appButtonKey = GlobalKey<AppButtonState>();
+  final _controller = Get.find<AuthController>();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -30,12 +34,9 @@ class LoginView extends StatelessWidget {
           child: ListView(
             shrinkWrap: true,
             children: [
-              Image.asset(
-                StringUtils.logo,
-                width: MediaQuery.of(context).size.width * .2,
-                height: MediaQuery.of(context).size.height * .2,
-              ),
               TextFormField(
+                onChanged: ((value) =>
+                    _controller.userModel.value.email = value),
                 validator: (value) {
                   if (value!.contains('@') &&
                       value.contains('.') &&
@@ -49,6 +50,8 @@ class LoginView extends StatelessWidget {
               ),
               vSpace,
               TextFormField(
+                onChanged: ((value) =>
+                    _controller.userModel.value.password = value),
                 decoration: const InputDecoration(labelText: "Enter Password"),
               ),
               TextButton(
@@ -57,21 +60,37 @@ class LoginView extends StatelessWidget {
                 },
                 child: const Text("Forgot Password?"),
               ),
-              FloatingActionButton.extended(
-                onPressed: () async {
-                  //if (_formKey.currentState!.validate()) {}
-                },
-                label: const Text("Login"),
+              Obx(
+                () => _controller.busy.isTrue
+                    ? const LoadingView()
+                    : FloatingActionButton.extended(
+                        onPressed: () async {
+                          if (_formKey.currentState!.validate()) {
+                            //login
+                            _controller.login();
+                          }
+                        },
+                        label: const Text("Login"),
+                      ),
               ),
               vSpace,
-              AppButton(
-                key: appButtonKey,
-                title: 'Custom btn',
+              GestureDetector(
                 onTap: () async {
-                  ///
-                  //appButtonKey.currentState!.makeButtonBusy();
-                  Get.to(SignUpView());
+                  //
+                  AuthController auth = Get.find();
+                  auth.changeView(1);
                 },
+                child: Text.rich(
+                  TextSpan(
+                    text: "Didn't have an account?",
+                    children: [
+                      TextSpan(
+                        text: " Click here.",
+                        style: TextStyle(color: Get.theme.primaryColor),
+                      )
+                    ],
+                  ),
+                ),
               ),
             ],
           ),

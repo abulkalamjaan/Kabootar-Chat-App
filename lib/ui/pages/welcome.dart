@@ -2,8 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:my_first_flutter_project/pages/auth/auth.dart';
-import 'package:my_first_flutter_project/pages/home.dart';
+import 'package:get/get.dart';
+import 'package:my_first_flutter_project/controllers/auth.dart';
+import 'package:my_first_flutter_project/ui/pages/auth/auth.dart';
+import 'package:my_first_flutter_project/ui/pages/home.dart';
 import 'package:my_first_flutter_project/resources/strings.dart';
 
 class WelcomePage extends StatefulWidget {
@@ -14,13 +16,11 @@ class WelcomePage extends StatefulWidget {
 }
 
 class _WelcomePageState extends State<WelcomePage> {
-  bool isDarkModeOn = false;
-
   @override
   void initState() {
     super.initState();
     Timer(const Duration(seconds: 3), () {
-      Navigator.pushNamed(context, AuthPage.route);
+      Get.find<AuthController>().checkAuthentication();
     });
   }
 
@@ -28,9 +28,12 @@ class _WelcomePageState extends State<WelcomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Image.asset(
-          StringUtils.logo,
-          width: MediaQuery.of(context).size.width * .6,
+        child: Hero(
+          tag: 'logo',
+          child: Image.asset(
+            StringUtils.logo,
+            width: MediaQuery.of(context).size.width * .6,
+          ),
         ),
       ),
     );
