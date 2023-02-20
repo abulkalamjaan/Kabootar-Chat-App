@@ -39,7 +39,9 @@ dependencies:
   cloud_firestore:
   firebase_auth:
   get: ^4.6.5
+  
   get_storage:
+  flutterflow_paginate_firestore: ^1.0.3+1
 dev_dependencies:
   flutter_test:
     sdk: flutter
