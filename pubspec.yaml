@@ -38,6 +38,9 @@ dependencies:
   firebase_core:
   cloud_firestore:
   firebase_auth:
+  firebase_storage:
+  permission_handler:
+  image_picker:
   get: ^4.6.5
   
   get_storage:

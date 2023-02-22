@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_first_flutter_project/ui/pages/auth/auth.dart';
 import 'package:my_first_flutter_project/ui/pages/auth/reset_pass.dart';
 import 'package:my_first_flutter_project/ui/pages/home.dart';
+import 'package:my_first_flutter_project/ui/pages/profile.dart';
 import 'package:my_first_flutter_project/ui/pages/search.dart';
 import 'package:my_first_flutter_project/ui/pages/welcome.dart';
 
@@ -13,5 +14,6 @@ class MainRoutes {
     ForgetPassPage.route: (p0) => ForgetPassPage(),
     HomePage.route: (p0) => HomePage(),
     SearchPage.route: (p0) => SearchPage(),
+    ProfilePage.route: (p0) => ProfilePage(),
   };
 }

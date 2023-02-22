@@ -10,6 +10,7 @@ import 'package:my_first_flutter_project/controllers/auth.dart';
 import 'package:my_first_flutter_project/controllers/chat_controller.dart';
 import 'package:my_first_flutter_project/database/user.dart';
 import 'package:my_first_flutter_project/resources/strings.dart';
+import 'package:my_first_flutter_project/ui/pages/profile.dart';
 import 'package:my_first_flutter_project/ui/pages/search.dart';
 
 class HomePage extends StatefulWidget {
@@ -39,6 +40,14 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(
+            Icons.person,
+          ),
+          onPressed: () {
+            Get.toNamed(ProfilePage.route);
+          },
+        ),
         title: Text(_controller.userModel.value.name),
         actions: [
           IconButton(
